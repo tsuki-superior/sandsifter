@@ -814,7 +814,7 @@ def main():
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE
                 ).communicate()
-    arch = re.search(r".*(..)-bit.*", injector_bitness).group(1)
+    arch = re.search(r"(.+)(..)-bit.*", injector_bitness).group(2)
 
     ts = ThreadState()
     signal.signal(signal.SIGINT, exit_handler)
