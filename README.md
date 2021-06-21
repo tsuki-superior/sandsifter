@@ -17,7 +17,7 @@ enable users to check their own systems for hidden instructions and bugs.
 To run a basic audit against your processor:
 
 ```
-sudo ./sifter.py --unk --dis --len --sync --tick -- -P1 -t
+sudo -E ./sifter.py --unk --dis --len --sync --tick -- -P1 -t
 ```
 
 ![demo_sandsifter](references/sandsifter.gif)
@@ -84,7 +84,7 @@ make
 and is then run with
 
 ```
-sudo ./sifter.py --unk --dis --len --sync --tick -- -P1 -t
+sudo -E ./sifter.py --unk --dis --len --sync --tick -- -P1 -t
 ```
 
 ### Flags
@@ -94,7 +94,7 @@ Flags are passed to the sifter with --flag, and to the injector with -- -f.
 Example:
 
 ```
-sudo ./sifter.py --unk --dis --len --sync --tick -- -P1 -t
+sudo -E ./sifter.py --unk --dis --len --sync --tick -- -P1 -t
 ```
 
 Sifter flags:
@@ -253,14 +253,14 @@ command line, or cycled via hotkeys.
   graphical front end. This can be done by running the injector directly:
 
   ```
-  sudo ./injector -P1 -t -0
+  sudo -E ./injector -P1 -t -0
   ```
 
   To filter the results of a direct injector invocation, grep can be used.
   For example,
 
   ```
-  sudo ./injector -P1 -r -0 | grep '\.r' | grep -v sigill
+  sudo -E ./injector -P1 -r -0 | grep '\.r' | grep -v sigill
   ```
 
   searches for instructions for which the processor and disassembler disagreed
@@ -275,7 +275,7 @@ command line, or cycled via hotkeys.
   instruction space with the -i and -e flags:
 
   ```
-  sudo ./sifter.py --unk --dis --len --sync --tick -- -t -i f0f0 -e f0f1 -D -P15
+  sudo -E ./sifter.py --unk --dis --len --sync --tick -- -t -i f0f0 -e f0f1 -D -P15
   ```
 
 - Legacy systems
