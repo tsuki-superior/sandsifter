@@ -1,5 +1,8 @@
+#!/usr/bin/env python
+
 import curses
 import locale
+
 
 class Box:
     def __init__(self, gui, window, x, y, w, h, color):
@@ -13,6 +16,7 @@ class Box:
 
     def draw(self):
         self.gui.box(self.window, self.x, self.y, self.w, self.h, self.color)
+
 
 class TextBox:
     def __init__(self, gui, window, x, y, w, h, color, text, text_color, selected_color):
@@ -48,21 +52,21 @@ class TextBox:
         self.draw()
 
     def at_top(self):
-		return self.selected_index == 0
+        return self.selected_index == 0
 
     def at_bottom(self):
-		return self.selected_index == len(self.text) - 1
+        return self.selected_index == len(self.text) - 1
 
     def scroll_top(self):
-		self.selected_index = 0
-		self.scroll_index = 0
-		self.draw()
+        self.selected_index = 0
+        self.scroll_index = 0
+        self.draw()
 
     def scroll_bottom(self):
-		self.selected_index = len(self.text) - 1
-		self.scroll_index = len(self.text) - (self.h - 2)
-		self.scroll_index = self.scroll_index if self.scroll_index > 0 else 0
-		self.draw()
+        self.selected_index = len(self.text) - 1
+        self.scroll_index = len(self.text) - (self.h - 2)
+        self.scroll_index = self.scroll_index if self.scroll_index > 0 else 0
+        self.draw()
 
     def draw(self):
         self.gui.box(self.window, self.x, self.y, self.w, self.h, self.color)
@@ -71,12 +75,13 @@ class TextBox:
                 l = l[:self.w - 5] + "..."
             l = l.ljust(self.w - 2)
             self.window.addstr(self.y + 1 + i, self.x + 1, l, self.text_color if
-                    self.selected_index != self.scroll_index + i else self.selected_color)
+                               self.selected_index != self.scroll_index + i else self.selected_color)
         for j in xrange(i + 1, self.h - 2):
             self.window.addstr(self.y + 1 + j, self.x + 1, " " * (self.w - 2), self.text_color if
-                    self.selected_index != self.scroll_index + j else self.selected_color)
+                               self.selected_index != self.scroll_index + j else self.selected_color)
         self.gui.vscrollbar(self.window, self.x + self.w, self.y, self.h,
-                self.selected_index / float(len(self.text)), self.gui.gray(1))
+                            self.selected_index / float(len(self.text)), self.gui.gray(1))
+
 
 class Gui:
     GRAY_BASE = 50
@@ -84,14 +89,14 @@ class Gui:
 
     BLACK = 1
     WHITE = 2
-    BLUE =  3
-    RED =   4
+    BLUE = 3
+    RED = 4
     GREEN = 5
 
     COLOR_BLACK = 16
     COLOR_WHITE = 17
-    COLOR_BLUE =  18
-    COLOR_RED =   19
+    COLOR_BLUE = 18
+    COLOR_RED = 19
     COLOR_GREEN = 20
 
     def __init__(self, no_delay=True):
@@ -114,7 +119,7 @@ class Gui:
         self.code = locale.getpreferredencoding()
 
     def stop(self):
-        curses.nocbreak();
+        curses.nocbreak()
         curses.echo()
         curses.endwin()
 
@@ -132,16 +137,16 @@ class Gui:
 
             for i in xrange(0, self.GRAYS):
                 curses.init_color(
-                        self.GRAY_BASE + i,
-                        i * 1000 / (self.GRAYS - 1),
-                        i * 1000 / (self.GRAYS - 1),
-                        i * 1000 / (self.GRAYS - 1)
-                        )
+                    self.GRAY_BASE + i,
+                    i * 1000 / (self.GRAYS - 1),
+                    i * 1000 / (self.GRAYS - 1),
+                    i * 1000 / (self.GRAYS - 1)
+                )
                 curses.init_pair(
-                        self.GRAY_BASE + i,
-                        self.GRAY_BASE + i,
-                        self.COLOR_BLACK
-                        )
+                    self.GRAY_BASE + i,
+                    self.GRAY_BASE + i,
+                    self.COLOR_BLACK
+                )
 
         else:
             self.COLOR_BLACK = curses.COLOR_BLACK
@@ -152,10 +157,10 @@ class Gui:
 
             for i in xrange(0, self.GRAYS):
                 curses.init_pair(
-                        self.GRAY_BASE + i,
-                        self.COLOR_WHITE,
-                        self.COLOR_BLACK
-                        )
+                    self.GRAY_BASE + i,
+                    self.COLOR_WHITE,
+                    self.COLOR_BLACK
+                )
 
         curses.init_pair(self.BLACK, self.COLOR_BLACK, self.COLOR_BLACK)
         curses.init_pair(self.WHITE, self.COLOR_WHITE, self.COLOR_BLACK)
@@ -200,5 +205,5 @@ class Gui:
     def hscrollbar(self, window, x, y, width, color):
         window.addstr(y, x, "}", color)
         window.addstr(y + height - 1, x, '}', color)
-        window.addch(y, int(x + 1 + progress * (width - 2)), curses.ACS_BLOCK, color)
-
+        window.addch(y, int(x + 1 + progress * (width - 2)),
+                     curses.ACS_BLOCK, color)

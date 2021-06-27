@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import sys
 
 PROGRESS_BAR_WIDTH = 40

@@ -31,6 +31,8 @@
 
 all: injector
 
+CC ?= cc
+
 injector: injector.o
 	$(CC) $(CFLAGS) $< -O3 -Wall -l:libcapstone.a -o $@ -pthread -no-pie
 
